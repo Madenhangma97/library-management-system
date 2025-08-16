@@ -6,6 +6,7 @@ import seedAdmin from "./seeder/adminSeed.js";
 import authRoutes from "./routes/authRoutes.js";
 import bookRoutes from "./routes/bookRoutes.js";
 import connectCloudinary from "./config/cloudinary.js";
+import studentRoutes from "./routes/studentRoutes.js";
 import multer from "multer";
 
 const app = express();
@@ -28,6 +29,14 @@ app.get("/", async (req, res) => {
   });
 });
 
+
+app.use("/api/auth", authRoutes);
+app.use("/api/books", upload.array("images", 5), bookRoutes);
+app.use("/api/students", studentRoutes);   // 👈 now students routes work
+
+
+
+
 app.use("/api/auth", authRoutes);
 app.use("/api", upload.array("images", 5), bookRoutes);
 
@@ -47,3 +56,8 @@ connectDB()
   .catch((e) => {
     console.log(e.message);
   });
+
+
+
+
+  
